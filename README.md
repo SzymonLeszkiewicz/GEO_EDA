@@ -1,5 +1,19 @@
 # GEO_EDA
 
+# Repository Structure
+
+```
+preprocessing/
+├─ Forsquare/
+│  ├─ forsquare_preprocessing.py
+├─ Gowalla/
+├─ .../
+postprocessing/
+├─ Forsquare/
+│  ├─ forsquare_hf_loader_postprocessing.py
+├─ Gowalla/
+├─ .../
+```
 
 # Datasets Overview
 List of the most popular datasets for geospatial data analysis and machine learning.
