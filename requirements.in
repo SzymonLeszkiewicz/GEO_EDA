@@ -1,0 +1,15 @@
+black[jupyter]
+notebook
+pandas
+matplotlib
+tqdm
+numpy
+ipykernel
+pyarrow
+geopandas
+glob2
+ipykernel
+ipywidgets
+folium
+mapclassify
+contextily
