@@ -1,0 +1,23 @@
+# Python 3.11.7
+
+# pip-tools must be installed:
+# python -m pip install pip-tools
+
+# to generate requirements.txt:
+# pip-compile requirements.in
+
+black[jupyter]
+fastparquet
+folium
+geopandas
+ipywidgets
+mapclassify
+matplotlib
+notebook
+numpy
+pandas
+pyarrow
+scikit-learn
+setuptools
+tqdm
+wheel
