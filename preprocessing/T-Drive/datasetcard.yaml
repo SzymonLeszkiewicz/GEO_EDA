@@ -1,0 +1,18 @@
+---
+license: mit
+extra_gated_prompt: "You agree to not use the dataset to conduct experiments that cause harm to human subjects."
+extra_gated_heading: "Condition"
+extra_gated_button_content: "Agree and continue"
+extra_gated_fields:
+  Company: text
+  Country: country
+  Specific date: date_picker
+  I want to use this dataset for:
+    type: select
+    options:
+      - Research
+      - Education
+      - label: Other
+        value: other
+  I agree to use this dataset for non-commercial use ONLY: checkbox
+---
