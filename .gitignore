@@ -49,8 +49,3 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
-
-notes
-bin
-
-.gitignore
