@@ -28,11 +28,11 @@ class TDrive(datasets.GeneratorBasedBuilder):
     def _split_generators(self, dl_manager):
         return [
             datasets.SplitGenerator(name=datasets.Split.TRAIN,
-                                    gen_kwargs={"filepath": "data/train_list.parquet", "split": "train"}),
+                                    gen_kwargs={"filepath": "data/train.parquet", "split": "train"}),
             datasets.SplitGenerator(name=datasets.Split.TEST,
-                                    gen_kwargs={"filepath": "data/test_list.parquet", "split": "test"}),
+                                    gen_kwargs={"filepath": "data/test.parquet", "split": "test"}),
             datasets.SplitGenerator(name=datasets.Split.VALIDATION,
-                                    gen_kwargs={"filepath": "data/val_list.parquet", "split": "validation"}),
+                                    gen_kwargs={"filepath": "data/val.parquet", "split": "validation"}),
 
         ]
 
