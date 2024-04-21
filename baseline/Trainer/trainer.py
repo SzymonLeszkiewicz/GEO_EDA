@@ -33,12 +33,16 @@ class Trainer:
 
         self.model = model
         self.args = args
-        batch_size = self.args["batch_size"]
-        input_cols, labels = self.args["input_col"], self.args["labels"]
+        batch_size = self.args.get("batch_size", 32)
+        input_cols, labels = self.args.get(
+            "input_col", "vector_embeddings"
+        ), self.args.get("labels", "labels")
+
         if train_dataloader is not None:
             self.train_dataloader = train_dataloader
             self.eval_dataloader = eval_dataloader
         else:
+
             self.train_dataset = CustomDataset(
                 train_df[input_cols].values, train_df[labels].values
             )
@@ -57,6 +61,7 @@ class Trainer:
             self.test_dataloader = test_dataloader
         else:
             if test_df is not None:
+
                 self.test_dataset = CustomDataset(
                     test_df[input_cols].values, test_df[labels].values
                 )
@@ -69,8 +74,8 @@ class Trainer:
 
         self.optimizer = optimizer
 
-        self.device = self.args["device"]
-        self.epochs = self.args["epochs"]
+        self.device = self.args.get("device", "cuda")
+        self.epochs = self.args.get("epochs", 50)
         self.loss_fn = loss_fn
         self.best_weights = None
 
