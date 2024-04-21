@@ -1,13 +1,18 @@
 import copy
+from typing import Optional
 
+import geopandas as gpd
 import numpy as np
+import pandas as pd
 import torch
 import torch.nn as nn
 import torch.utils
 import torch.utils.data
 import tqdm
-from .dataset import CustomDataset
+from torch.utils.data import DataLoader
 from tqdm import tqdm
+
+from .dataset import CustomDataset
 
 
 class Trainer:
@@ -15,43 +20,54 @@ class Trainer:
         self,
         model: nn.Module = None,
         args: dict = None,
-        train_df=None,
-        eval_df=None,
-        test_df=None,
+        train_dataloader: Optional[DataLoader] = None,
+        eval_dataloader: Optional[DataLoader] = None,
+        test_dataloader: Optional[DataLoader] = None,
+        train_df: pd.DataFrame | gpd.GeoDataFrame = None,
+        eval_df: pd.DataFrame | gpd.GeoDataFrame = None,
+        test_df: pd.DataFrame | gpd.GeoDataFrame = None,
         optimizer: torch.optim.Optimizer = None,
         # lr_scheduler: torch.optim.lr_scheduler.LambdaLR = None,
-        loss_fn=nn.L1Loss(),
+        loss_fn: torch.optim.Optimizer = nn.L1Loss(),
     ):
 
         self.model = model
         self.args = args
         batch_size = self.args["batch_size"]
         input_cols, labels = self.args["input_col"], self.args["labels"]
-        self.train_dataset = CustomDataset(
-            train_df[input_cols].values, train_df[labels].values
-        )
-        self.eval_dataset = CustomDataset(
-            eval_df[input_cols].values, eval_df[labels].values
-        )
+        if train_dataloader is not None:
+            self.train_dataloader = train_dataloader
+            self.eval_dataloader = eval_dataloader
+        else:
+            self.train_dataset = CustomDataset(
+                train_df[input_cols].values, train_df[labels].values
+            )
+            self.eval_dataset = CustomDataset(
+                eval_df[input_cols].values, eval_df[labels].values
+            )
 
-        # Create DataLoader objects
-        self.train_dataloader = torch.utils.data.DataLoader(
-            self.train_dataset, batch_size=batch_size, shuffle=True
-        )
-        self.eval_dataloader = torch.utils.data.DataLoader(
-            self.eval_dataset, batch_size=batch_size, shuffle=False
-        )
-        if test_df is not None:
-            self.test_dataset = CustomDataset(
-                test_df[input_cols].values, test_df[labels].values
+            # Create DataLoader objects
+            self.train_dataloader = DataLoader(
+                self.train_dataset, batch_size=batch_size, shuffle=True
             )
-            self.test_dataloader = torch.utils.data.DataLoader(
-                self.test_dataset, batch_size=batch_size, shuffle=False
+            self.eval_dataloader = DataLoader(
+                self.eval_dataset, batch_size=batch_size, shuffle=False
             )
+        if test_dataloader is not None:
+            self.test_dataloader = test_dataloader
+        else:
+            if test_df is not None:
+                self.test_dataset = CustomDataset(
+                    test_df[input_cols].values, test_df[labels].values
+                )
+                self.test_dataloader = torch.utils.data.DataLoader(
+                    self.test_dataset, batch_size=batch_size, shuffle=False
+                )
+
         # self.lr_scheduler = lr_scheduler
         # if self.lr_scheduler is not None:
 
-        self.optimizer = (optimizer,)
+        self.optimizer = optimizer
 
         self.device = self.args["device"]
         self.epochs = self.args["epochs"]
