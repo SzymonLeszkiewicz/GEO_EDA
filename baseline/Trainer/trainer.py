@@ -28,7 +28,7 @@ class Trainer:
         test_df: pd.DataFrame | gpd.GeoDataFrame = None,
         optimizer: torch.optim.Optimizer = None,
         # lr_scheduler: torch.optim.lr_scheduler.LambdaLR = None,
-        loss_fn: torch.optim.Optimizer = nn.L1Loss(),
+        loss_fn = nn.L1Loss(),
     ):
 
         self.model = model
