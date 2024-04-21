@@ -6,7 +6,7 @@ import torch.nn as nn
 import torch.utils
 import torch.utils.data
 import tqdm
-from dataset import CustomDataset
+from .dataset import CustomDataset
 from tqdm import tqdm
 
 
@@ -26,7 +26,7 @@ class Trainer:
         self.model = model
         self.args = args
         batch_size = self.args["batch_size"]
-        input_cols, labels = self.args["input_cols"], self.args["labels"]
+        input_cols, labels = self.args["input_col"], self.args["labels"]
         self.train_dataset = CustomDataset(
             train_df[input_cols].values, train_df[labels].values
         )
