@@ -49,3 +49,14 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+
+# SRAI-related
+/srai-obsrai/
+**/files/
+**/lightning_logs/
+**/cache/
+
+# storing temporal data
+**/data/
+*.feather
+*.parquet
