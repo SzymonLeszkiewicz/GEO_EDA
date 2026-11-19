@@ -98,7 +98,7 @@ matplotlib-inline==0.1.6
 mdit-py-plugins==0.4.0
 mdurl==0.1.2
 mercantile==1.2.1
-mistune==3.0.2
+mistune==3.3.4
 movingpandas==0.17.2
 mpmath==1.3.0
 multidict==6.0.5
